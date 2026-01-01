@@ -6,11 +6,6 @@ app = marimo.App(width="medium")
 
 @app.cell
 def _():
-    return
-
-
-@app.cell
-def _():
     import marimo as mo
     return (mo,)
 
@@ -367,7 +362,7 @@ def _(
         target_sum = int(np.sum(values))
         normalized = normalize_to_sum(result, target_sum)
         return normalized
-    
+
     spike_radius = spikie_r_slider.value
 
     spike_result = spike_redistribution_smooth(
@@ -401,32 +396,32 @@ def _(cma_window_slider, np, plot_individual_comparison, plt, test_data):
     def constrained_moving_average_smoothing(data: np.ndarray, window: int = 10) -> np.ndarray:
         n = len(data)
         result = data.copy()
-    
+
         if n <= 1:
             return result
-    
+
         smoothed = np.zeros(n)
         smoothed[0] = data[0]
-    
+
         for i in range(1, n):
             start = max(0, i - window)
             end = min(n, i + window + 1)
-        
+
             if start == 0:
                 window_data = data[1:end]
                 smoothed[i] = np.mean(window_data) if len(window_data) > 0 else data[i]
             else:
                 window_data = data[start:end]
                 smoothed[i] = np.mean(window_data)
-    
+
         original_sum = np.sum(data)
         smoothed_sum = np.sum(smoothed)
-    
+
         if smoothed_sum > 0:
             adjustment_factor = (original_sum - smoothed[0]) / (smoothed_sum - smoothed[0])
             result[1:] = smoothed[1:] * adjustment_factor
             result[0] = data[0]
-    
+
         return result
 
     cma_window = cma_window_slider.value
@@ -457,16 +452,16 @@ def _(lkr_window_slider, np, plot_individual_comparison, plt, test_data):
     def localized_kernel_regression(data: np.ndarray, window: int = 10, kernel: str = 'triangular') -> np.ndarray:
         n = len(data)
         result = data.copy()
-    
+
         if n <= 1:
             return result
-    
+
         # カーネル関数の定義
         def get_kernel_weight(distance: float, bandwidth: float, kernel_type: str) -> float:
             u = distance / bandwidth
             if abs(u) > 1:
                 return 0.0
-        
+
             if kernel_type == 'triangular':
                 return 1 - abs(u)
             elif kernel_type == 'epanechnikov':
@@ -475,36 +470,36 @@ def _(lkr_window_slider, np, plot_individual_comparison, plt, test_data):
                 return np.exp(-0.5 * u**2)
             else:
                 return 1.0
-    
+
         smoothed = np.zeros(n)
         smoothed[0] = data[0]
-    
+
         bandwidth = window
-    
+
         for i in range(1, n):
             start = max(1, i - window)
             end = min(n, i + window + 1)
-        
+
             weights = np.zeros(end - start)
             values = data[start:end]
-        
+
             for j, idx in enumerate(range(start, end)):
                 distance = abs(idx - i)
                 weights[j] = get_kernel_weight(distance, bandwidth, kernel)
-        
+
             if np.sum(weights) > 0:
                 smoothed[i] = np.sum(weights * values) / np.sum(weights)
             else:
                 smoothed[i] = data[i]
-    
+
         original_sum = np.sum(data)
         smoothed_sum = np.sum(smoothed)
-    
+
         if smoothed_sum > 0 and abs(smoothed_sum - smoothed[0]) > 1e-10:
             adjustment_factor = (original_sum - smoothed[0]) / (smoothed_sum - smoothed[0])
             result[1:] = smoothed[1:] * adjustment_factor
             result[0] = data[0]
-    
+
         return result
 
     lkr_window = lkr_window_slider.value
@@ -520,7 +515,7 @@ def _(lkr_window_slider, np, plot_individual_comparison, plt, test_data):
         'Localized Kernel Regression'
     )
     plt.show()
-    return (lkr_result,)
+    return lkr_result, lkr_window
 
 
 @app.cell
@@ -557,53 +552,53 @@ def _(
     def adaptive_window_smoothing(data: np.ndarray, base_window: int = 5, max_window: int = 10, spike_threshold: float = 2.0) -> np.ndarray:
         n = len(data)
         result = data.copy()
-    
+
         if n <= 2:
             return result
-    
+
         def detect_spikes(arr: np.ndarray, threshold: float) -> np.ndarray:
             if len(arr) < 3:
                 return np.zeros(len(arr), dtype=bool)
-        
+
             local_std = np.zeros(len(arr))
             for i in range(len(arr)):
                 start = max(0, i - 3)
                 end = min(len(arr), i + 4)
                 local_std[i] = np.std(arr[start:end])
-        
+
             median_val = np.median(arr)
             deviations = np.abs(arr - median_val)
-        
+
             is_spike = deviations > (threshold * np.median(local_std))
             return is_spike
-    
+
         spikes = detect_spikes(data, spike_threshold)
         spikes[0] = False
-    
+
         smoothed = data.copy()
-    
+
         for i in range(1, n):
             nearby_range = range(max(1, i - base_window), min(n, i + base_window + 1))
             has_nearby_spike = any(spikes[j] for j in nearby_range)
-        
+
             if has_nearby_spike:
                 window = max_window
             else:
                 window = base_window
-        
+
             start = max(1, i - window)
             end = min(n, i + window + 1)
-        
+
             smoothed[i] = np.mean(data[start:end])
-    
+
         original_sum = np.sum(data)
         smoothed_sum = np.sum(smoothed)
-    
+
         if smoothed_sum > 0 and abs(smoothed_sum - smoothed[0]) > 1e-10:
             adjustment_factor = (original_sum - smoothed[0]) / (smoothed_sum - smoothed[0])
             result[1:] = smoothed[1:] * adjustment_factor
             result[0] = data[0]
-    
+
         return result
 
     adaptive_base_window = adaptive_base_window_slider.value
@@ -651,43 +646,43 @@ def _(
 
     def constrained_least_squares_smoothing(data: np.ndarray, window: int = 10, lambda_smooth: float = 0.1) -> np.ndarray:
         n = len(data)
-    
+
         if n <= 1:
             return data.copy()
-    
+
         def objective(x: np.ndarray) -> float:
             fidelity = 0.0
             for i in range(1, n):
                 start = max(1, i - window)
                 end = min(n, i + window + 1)
-            
+
                 if i < start or i >= end:
                     weight = 10.0
                 else:
                     weight = 1.0
-            
+
                 fidelity += weight * (x[i] - data[i])**2
-        
+
             smoothness = 0.0
             for i in range(1, n - 1):
                 smoothness += (x[i+1] - 2*x[i] + x[i-1])**2
-        
+
             return fidelity + lambda_smooth * smoothness
-    
+
         constraints = [
             {'type': 'eq', 'fun': lambda x: np.sum(x) - np.sum(data)},
             {'type': 'eq', 'fun': lambda x: x[0] - data[0]}
         ]
-    
+
         x0 = data.copy()
-    
+
         result = minimize(objective, x0, method='SLSQP', constraints=constraints)
-    
+
         return result.x if result.success else data.copy()
 
     cls_window = cls_window_slider.value
     cls_lambda = cls_lambda_slider.value
-    
+
     cls_result = constrained_least_squares_smoothing(test_data, window=cls_window, lambda_smooth=cls_lambda)
     print(f"\nConstrained Least Squares Smoothing result:")
     print(f"Original sum: {np.sum(test_data)}, Smoothed sum: {np.sum(cls_result)}")
@@ -727,10 +722,10 @@ def _(
 ):
     def localized_lowess_smoothing(data: np.ndarray, window: int = 10, iterations: int = 3) -> np.ndarray:
         n = len(data)
-    
+
         if n <= 1:
             return data.copy()
-    
+
         def tricube_weight(distance: float, max_distance: float) -> float:
             if max_distance == 0:
                 return 1.0
@@ -738,27 +733,27 @@ def _(
             if u >= 1:
                 return 0.0
             return (1 - u**3)**3
-    
+
         smoothed = data.copy()
-    
+
         for iteration in range(iterations):
             new_smoothed = np.zeros(n)
             new_smoothed[0] = data[0] 
-        
+
             residuals = np.abs(smoothed - data)
             median_residual = np.median(residuals[1:])  # 左端除く
-        
+
             for i in range(1, n):
                 start = max(1, i - window)
                 end = min(n, i + window + 1)
-            
+
                 indices = np.arange(start, end)
                 values = smoothed[indices]
-            
+
                 distances = np.abs(indices - i)
                 max_dist = window
                 distance_weights = np.array([tricube_weight(d, max_dist) for d in distances])
-            
+
                 if median_residual > 0:
                     robust_weights = np.array([
                         (1 - (residuals[idx] / (6 * median_residual))**2)**2 
@@ -767,25 +762,25 @@ def _(
                     ])
                 else:
                     robust_weights = np.ones(len(indices))
-            
+
                 weights = distance_weights * robust_weights
-            
+
                 if np.sum(weights) > 0:
                     new_smoothed[i] = np.sum(weights * values) / np.sum(weights)
                 else:
                     new_smoothed[i] = smoothed[i]
-        
+
             smoothed = new_smoothed
-    
+
         original_sum = np.sum(data)
         smoothed_sum = np.sum(smoothed)
-    
+
         result = smoothed.copy()
         if smoothed_sum > 0 and abs(smoothed_sum - smoothed[0]) > 1e-10:
             adjustment_factor = (original_sum - smoothed[0]) / (smoothed_sum - smoothed[0])
             result[1:] = smoothed[1:] * adjustment_factor
             result[0] = data[0]
-    
+
         return result
 
     lowness_window = lowness_window_slider.value
@@ -803,6 +798,164 @@ def _(
     )
     plt.show()
     return (lowess_result,)
+
+
+@app.cell
+def _(lkr_window, np, plot_individual_comparison, plt, test_data):
+    def lkr_sum_preserve(data: np.ndarray, window: int = 10, kernel: str = 'triangular') -> np.ndarray:
+        """
+        局所的カーネル回帰（総計保存・整数出力版）
+        - 指定ウィンドウ内でカーネル重み付け平均
+        - 左端固定、総計厳密保存
+        - 整数出力
+        """
+        n = len(data)
+    
+        if n <= 1:
+            return data.copy().astype(np.int64)
+    
+        # カーネル関数の定義
+        def get_kernel_weight(distance: float, bandwidth: float, kernel_type: str) -> float:
+            if bandwidth == 0:
+                return 1.0 if distance == 0 else 0.0
+            
+            u = distance / bandwidth
+            if abs(u) > 1:
+                return 0.0
+        
+            if kernel_type == 'triangular':
+                return 1 - abs(u)
+            elif kernel_type == 'epanechnikov':
+                return 0.75 * (1 - u**2)
+            elif kernel_type == 'gaussian':
+                return np.exp(-0.5 * u**2)
+            else:
+                return 1.0
+    
+        # 浮動小数点でスムージング
+        smoothed = np.zeros(n, dtype=np.float64)
+        smoothed[0] = float(data[0])  # 左端固定
+    
+        bandwidth = float(window)
+    
+        for i in range(1, n):
+            # ウィンドウ範囲（左端を除外）
+            start = max(1, i - window)
+            end = min(n, i + window + 1)
+        
+            weights = []
+            values = []
+        
+            # 各点の重みを計算
+            for idx in range(start, end):
+                distance = abs(idx - i)
+                weight = get_kernel_weight(float(distance), bandwidth, kernel)
+                if weight > 0:
+                    weights.append(weight)
+                    values.append(float(data[idx]))
+        
+            # 重み付き平均
+            if len(weights) > 0 and sum(weights) > 0:
+                smoothed[i] = sum(w * v for w, v in zip(weights, values)) / sum(weights)
+            else:
+                smoothed[i] = float(data[i])
+    
+        # 総計保存のための調整（浮動小数点）
+        original_sum = int(np.sum(data))
+        smoothed_sum = np.sum(smoothed)
+    
+        adjusted = smoothed.copy()
+    
+        # 左端以外を比例スケール
+        if abs(smoothed_sum - smoothed[0]) > 1e-10:
+            target_sum_without_first = original_sum - smoothed[0]
+            current_sum_without_first = smoothed_sum - smoothed[0]
+        
+            if current_sum_without_first > 0:
+                scale_factor = target_sum_without_first / current_sum_without_first
+                adjusted[1:] = smoothed[1:] * scale_factor
+    
+        # 整数化（四捨五入）
+        result = np.round(adjusted).astype(np.int64)
+        result[0] = int(data[0])  # 左端は元の値を厳密に保持
+    
+        # 丸め誤差による総計のずれを修正
+        current_total = np.sum(result)
+        diff = original_sum - current_total
+    
+        if diff != 0:
+            # 左端以外で調整
+            # 差分を最も値が大きい要素から順に配分
+            indices = np.argsort(result[1:])[::-1] + 1  # 降順、左端除外
+        
+            # 差分を1ずつ配分
+            for i in range(abs(diff)):
+                idx = indices[i % len(indices)]
+                if diff > 0:
+                    result[idx] += 1
+                else:
+                    result[idx] -= 1
+                    # 負にならないようにチェック
+                    if result[idx] < 0:
+                        result[idx] = 0
+    
+        return result
+
+    lkr_sp_result = lkr_sum_preserve(test_data, window=lkr_window, kernel='triangular')
+    print(f"\nLKR Sum-Preserving Integer result:")
+    print(f"Original sum: {np.sum(test_data)}, Smoothed sum: {np.sum(lkr_sp_result)}")
+    fig_lkr_sp = plot_individual_comparison(
+        test_data,
+        lkr_sp_result,
+        'Localized Kernel Regression (Sum-Preserving Integer)',
+        'LKR Sum-Preserving Integer'
+    )
+    plt.show()
+    return (lkr_sum_preserve,)
+
+
+@app.cell
+def _(
+    lkr_sum_preserve,
+    lkr_window,
+    np,
+    plot_individual_comparison,
+    plt,
+    test_data,
+):
+    lkr_sp_epanechnikov_result = lkr_sum_preserve(test_data, window=lkr_window, kernel='epanechnikov')
+    print(f"\nLKR Sum-Preserving Integer (Epanechnikov Kernel) result:")
+    print(f"Original sum: {np.sum(test_data)}, Smoothed sum: {np.sum(lkr_sp_epanechnikov_result)}")
+    fig_lkr_sp_epanechnikov = plot_individual_comparison(
+        test_data,
+        lkr_sp_epanechnikov_result,
+        'Localized Kernel Regression (Sum-Preserving Integer, Epanechnikov Kernel)',
+        'LKR Sum-Preserving Integer (Epanechnikov)'
+    )
+    plt.show()
+    return
+
+
+@app.cell
+def _(
+    lkr_sum_preserve,
+    lkr_window,
+    np,
+    plot_individual_comparison,
+    plt,
+    test_data,
+):
+    lkr_sp_gaussian_result = lkr_sum_preserve(test_data, window=lkr_window, kernel='gaussian')
+    print(f"\nLKR Sum-Preserving Integer (Gaussian Kernel) result:")
+    print(f"Original sum: {np.sum(test_data)}, Smoothed sum: {np.sum(lkr_sp_gaussian_result)}")
+    fig_lkr_sp_gaussian = plot_individual_comparison(
+        test_data,
+        lkr_sp_gaussian_result,
+        'Localized Kernel Regression (Sum-Preserving Integer, Gaussian Kernel)',
+        'LKR Sum-Preserving Integer (Gaussian)'
+    )
+    plt.show()
+    return
 
 
 @app.cell(hide_code=True)
