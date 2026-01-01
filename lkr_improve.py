@@ -7,7 +7,7 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-    return
+    return (mo,)
 
 
 @app.cell(hide_code=True)
@@ -38,7 +38,7 @@ def _():
     test_data = generate_test_data(length=30, seed=42)
     print(f"Generated test data (length={len(test_data)}, sum={np.sum(test_data)}):")
     print(test_data)
-    return np, plt, test_data
+    return Optional, np, plt, test_data
 
 
 @app.cell(hide_code=True)
@@ -298,41 +298,41 @@ def _(np, plot_individual_comparison, plt, test_data):
         extrapolation_points: int = None
     ) -> np.ndarray:
         n = len(data)
-    
+
         if n <= 1:
             return data.copy().astype(np.int64)
-    
+
         if extrapolation_points is None:
             extrapolation_points = window
-    
+
         extended_data = np.zeros(n + extrapolation_points, dtype=np.float64)
         extended_data[:n] = data.astype(np.float64)
-    
+
         if n >= 2:
             fit_start = max(1, n - window)  # 左端を除外
             fit_end = n
-        
+
             x_fit = np.arange(fit_start, fit_end)
             y_fit = data[fit_start:fit_end].astype(np.float64)
-        
+
             if len(x_fit) > 1:
                 coeffs = np.polyfit(x_fit, y_fit, 1)
                 slope, intercept = coeffs[0], coeffs[1]
-            
+
                 for i in range(extrapolation_points):
                     x_extrap = n + i
                     extended_data[n + i] = slope * x_extrap + intercept
             else:
                 extended_data[n:] = data[-1]
-    
+
         def kernel_weight(distance: float, bandwidth: float) -> float:
             if bandwidth == 0:
                 return 1.0 if distance == 0 else 0.0
-        
+
             u = distance / bandwidth
             if abs(u) > 1:
                 return 0.0
-        
+
             if kernel == 'triangular':
                 return 1 - abs(u)
             elif kernel == 'epanechnikov':
@@ -340,48 +340,48 @@ def _(np, plot_individual_comparison, plt, test_data):
             elif kernel == 'gaussian':
                 return np.exp(-0.5 * u**2)
             return 1.0
-    
+
         smoothed = np.zeros(n, dtype=np.float64)
         smoothed[0] = float(data[0])
-    
+
         for i in range(1, n):
             start = max(1, i - window)
             end = min(len(extended_data), i + window + 1)
-        
+
             total_weight = 0.0
             weighted_sum = 0.0
-        
+
             for idx in range(start, end):
                 w = kernel_weight(float(abs(idx - i)), float(window))
                 if w > 0:
                     total_weight += w
                     weighted_sum += w * extended_data[idx]
-        
+
             smoothed[i] = weighted_sum / total_weight if total_weight > 0 else float(data[i])
-    
+
         original_sum = int(np.sum(data))
         if abs(np.sum(smoothed[1:])) > 1e-10:
             scale = (original_sum - smoothed[0]) / np.sum(smoothed[1:])
             smoothed[1:] *= scale
-    
+
         result = np.zeros(n, dtype=np.int64)
         result[0] = int(data[0])
-    
+
         floors = np.floor(smoothed[1:]).astype(np.int64)
         result[1:] = floors
-    
+
         remainders = smoothed[1:] - floors
         diff = original_sum - np.sum(result)
-    
+
         if diff != 0:
             indices = np.argsort(remainders)[::-1] if diff > 0 else np.argsort(remainders)
-        
+
             for i in range(min(abs(diff), len(indices))):
                 idx = indices[i] + 1
                 result[idx] += 1 if diff > 0 else -1
                 if result[idx] < 0:
                     result[idx] = 0
-    
+
         return result
 
     lkr_greville_result = kernel_regression_with_greville_linear(test_data)
@@ -409,29 +409,29 @@ def _(np, plot_individual_comparison, plt, test_data):
         Greville補正付き局所カーネル回帰（2次多項式外挿版）
         """
         n = len(data)
-    
+
         if n <= 1:
             return data.copy().astype(np.int64)
-    
+
         if extrapolation_points is None:
             extrapolation_points = window
-    
+
         # 拡張データ配列
         extended_data = np.zeros(n + extrapolation_points, dtype=np.float64)
         extended_data[:n] = data.astype(np.float64)
-    
+
         # 右端の2次トレンド推定
         if n >= 3:
             fit_start = max(1, n - min(window * 2, n - 1))
             fit_end = n
-        
+
             x_fit = np.arange(fit_start, fit_end)
             y_fit = data[fit_start:fit_end].astype(np.float64)
-        
+
             # 2次多項式フィッティング
             if len(x_fit) >= 3:
                 coeffs = np.polyfit(x_fit, y_fit, 2)
-            
+
                 # 外挿
                 for i in range(extrapolation_points):
                     x_extrap = n + i
@@ -451,16 +451,16 @@ def _(np, plot_individual_comparison, plt, test_data):
                 extended_data[n + i] = data[-1] + slope * (i + 1)
         else:
             extended_data[n:] = data[-1]
-    
+
         # カーネル関数
         def kernel_weight(distance: float, bandwidth: float) -> float:
             if bandwidth == 0:
                 return 1.0 if distance == 0 else 0.0
-        
+
             u = distance / bandwidth
             if abs(u) > 1:
                 return 0.0
-        
+
             if kernel == 'triangular':
                 return 1 - abs(u)
             elif kernel == 'epanechnikov':
@@ -468,41 +468,41 @@ def _(np, plot_individual_comparison, plt, test_data):
             elif kernel == 'gaussian':
                 return np.exp(-0.5 * u**2)
             return 1.0
-    
+
         # スムージング
         smoothed = np.zeros(n, dtype=np.float64)
         smoothed[0] = float(data[0])
-    
+
         for i in range(1, n):
             start = max(1, i - window)
             end = min(len(extended_data), i + window + 1)
-        
+
             total_weight = 0.0
             weighted_sum = 0.0
-        
+
             for idx in range(start, end):
                 w = kernel_weight(float(abs(idx - i)), float(window))
                 if w > 0:
                     total_weight += w
                     weighted_sum += w * extended_data[idx]
-        
+
             smoothed[i] = weighted_sum / total_weight if total_weight > 0 else float(data[i])
-    
+
         # 総計保存・整数化
         original_sum = int(np.sum(data))
         if abs(np.sum(smoothed[1:])) > 1e-10:
             scale = (original_sum - smoothed[0]) / np.sum(smoothed[1:])
             smoothed[1:] *= scale
-    
+
         result = np.zeros(n, dtype=np.int64)
         result[0] = int(data[0])
-    
+
         floors = np.floor(smoothed[1:]).astype(np.int64)
         result[1:] = floors
-    
+
         remainders = smoothed[1:] - floors
         diff = original_sum - np.sum(result)
-    
+
         if diff != 0:
             indices = np.argsort(remainders)[::-1] if diff > 0 else np.argsort(remainders)
             for i in range(min(abs(diff), len(indices))):
@@ -510,7 +510,7 @@ def _(np, plot_individual_comparison, plt, test_data):
                 result[idx] += 1 if diff > 0 else -1
                 if result[idx] < 0:
                     result[idx] = 0
-    
+
         return result
 
     lkr_greville_quadratic_result = kernel_regression_with_greville_quadratic(test_data)
@@ -539,40 +539,40 @@ def _(np, plot_individual_comparison, plt, test_data):
     ) -> np.ndarray:
         """
         Greville補正付き局所カーネル回帰（ミラーリング版）
-    
+
         右端付近のデータを鏡映して仮想点を生成
         """
         n = len(data)
-    
+
         if n <= 1:
             return data.copy().astype(np.int64)
-    
+
         if mirror_length is None:
             mirror_length = min(window, n - 1)
-    
+
         # 拡張データ配列（ミラーリング）
         extended_data = np.zeros(n + mirror_length, dtype=np.float64)
         extended_data[:n] = data.astype(np.float64)
-    
+
         # 右端をミラーリング（最後の値を軸に反転）
         if n >= 2 and mirror_length > 0:
             anchor = data[-1]
             mirror_source = data[max(1, n - mirror_length - 1):n-1][::-1]  # 左端除外
-        
+
             # アンカーからの差分を反転
             for i in range(min(mirror_length, len(mirror_source))):
                 diff = mirror_source[i] - anchor
                 extended_data[n + i] = anchor - diff
-    
+
         # カーネル関数
         def kernel_weight(distance: float, bandwidth: float) -> float:
             if bandwidth == 0:
                 return 1.0 if distance == 0 else 0.0
-        
+
             u = distance / bandwidth
             if abs(u) > 1:
                 return 0.0
-        
+
             if kernel == 'triangular':
                 return 1 - abs(u)
             elif kernel == 'epanechnikov':
@@ -580,41 +580,41 @@ def _(np, plot_individual_comparison, plt, test_data):
             elif kernel == 'gaussian':
                 return np.exp(-0.5 * u**2)
             return 1.0
-    
+
         # スムージング
         smoothed = np.zeros(n, dtype=np.float64)
         smoothed[0] = float(data[0])
-    
+
         for i in range(1, n):
             start = max(1, i - window)
             end = min(len(extended_data), i + window + 1)
-        
+
             total_weight = 0.0
             weighted_sum = 0.0
-        
+
             for idx in range(start, end):
                 w = kernel_weight(float(abs(idx - i)), float(window))
                 if w > 0:
                     total_weight += w
                     weighted_sum += w * extended_data[idx]
-        
+
             smoothed[i] = weighted_sum / total_weight if total_weight > 0 else float(data[i])
-    
+
         # 総計保存・整数化
         original_sum = int(np.sum(data))
         if abs(np.sum(smoothed[1:])) > 1e-10:
             scale = (original_sum - smoothed[0]) / np.sum(smoothed[1:])
             smoothed[1:] *= scale
-    
+
         result = np.zeros(n, dtype=np.int64)
         result[0] = int(data[0])
-    
+
         floors = np.floor(smoothed[1:]).astype(np.int64)
         result[1:] = floors
-    
+
         remainders = smoothed[1:] - floors
         diff = original_sum - np.sum(result)
-    
+
         if diff != 0:
             indices = np.argsort(remainders)[::-1] if diff > 0 else np.argsort(remainders)
             for i in range(min(abs(diff), len(indices))):
@@ -622,7 +622,7 @@ def _(np, plot_individual_comparison, plt, test_data):
                 result[idx] += 1 if diff > 0 else -1
                 if result[idx] < 0:
                     result[idx] = 0
-    
+
         return result
 
     lkr_greville_mirror_result = kernel_regression_with_greville_mirror(test_data)
@@ -902,19 +902,19 @@ def _(
 ):
     def evaluate_smoothing_quality(original, smoothed, window):
         n = len(original)
-    
+
         sum_error = abs(np.sum(smoothed) - np.sum(original))
         left_error = abs(smoothed[0] - original[0])
-    
+
         if n > 2:
             smoothness = np.sum(np.abs(np.diff(smoothed, n=2)))
         else:
             smoothness = 0
-    
+
         right_end_variance = np.var(smoothed[max(0, n-window):])
-    
+
         rmse = np.sqrt(np.mean((smoothed - original)**2))
-    
+
         return {
             'sum_error': sum_error,
             'left_error': left_error,
@@ -939,9 +939,161 @@ def _(
     for ev_name, func in methods.items():
         ev_result = func(test_data_evaluate)
         metrics = evaluate_smoothing_quality(test_data_evaluate, ev_result, 10)
-    
+
         print(f"{ev_name:<20s} | {metrics['sum_error']:8d} | {metrics['left_error']:9d} | "
               f"{metrics['smoothness']:11.2f} | {metrics['right_end_var']:8.2f} | {metrics['rmse']:8.2f}")
+    return
+
+
+@app.cell
+def _(mo, test_data):
+    start_value_slider = mo.ui.slider(0, 200, value=test_data[0], label='Start Value')
+    start_value_slider
+    return (start_value_slider,)
+
+
+@app.cell
+def _(mo):
+    window_size_slider = mo.ui.slider(1, 50, value=10, label='Window Size')
+    window_size_slider
+    return (window_size_slider,)
+
+
+@app.cell(hide_code=True)
+def _(
+    Optional,
+    np,
+    plot_individual_comparison,
+    plt,
+    start_value_slider,
+    test_data,
+    window_size_slider,
+):
+    def kernel_regression_greville_flexible_start(
+        data: np.ndarray, 
+        window: int = 10, 
+        kernel: str = 'triangular',
+        extrapolation_points: Optional[int] = None,
+        start_value: Optional[int] = None,
+    ) -> np.ndarray:
+        n = len(data)
+    
+        if n <= 1:
+            result = data.copy().astype(np.int64)
+            if start_value is not None and n == 1:
+                result[0] = int(start_value)
+            return result
+    
+        if extrapolation_points is None:
+            extrapolation_points = window
+    
+        if start_value is not None:
+            left_value = float(start_value)
+        else:
+            left_value = float(data[0])
+    
+        extended_data = np.zeros(n + extrapolation_points, dtype=np.float64)
+        extended_data[:n] = data.astype(np.float64)
+    
+        if n >= 2:
+            fit_start = max(1, n - window)
+            fit_end = n
+        
+            x_fit = np.arange(fit_start, fit_end)
+            y_fit = data[fit_start:fit_end].astype(np.float64)
+        
+            if len(x_fit) > 1:
+                coeffs = np.polyfit(x_fit, y_fit, 1)
+                slope, intercept = coeffs[0], coeffs[1]
+            
+                for i in range(extrapolation_points):
+                    x_extrap = n + i
+                    extended_data[n + i] = slope * x_extrap + intercept
+            else:
+                extended_data[n:] = data[-1]
+    
+        def kernel_weight(distance: float, bandwidth: float) -> float:
+            if bandwidth == 0:
+                return 1.0 if distance == 0 else 0.0
+        
+            u = distance / bandwidth
+            if abs(u) > 1:
+                return 0.0
+        
+            if kernel == 'triangular':
+                return 1 - abs(u)
+            elif kernel == 'epanechnikov':
+                return 0.75 * (1 - u**2)
+            elif kernel == 'gaussian':
+                return np.exp(-0.5 * u**2)
+            return 1.0
+    
+        smoothed = np.zeros(n, dtype=np.float64)
+        smoothed[0] = left_value
+    
+        for i in range(1, n):
+            start = max(0, i - window)
+            end = min(len(extended_data), i + window + 1)
+        
+            total_weight = 0.0
+            weighted_sum = 0.0
+        
+            for idx in range(start, end):
+                w = kernel_weight(float(abs(idx - i)), float(window))
+                if w > 0:
+                    value = left_value if idx == 0 else extended_data[idx]
+                    total_weight += w
+                    weighted_sum += w * value
+        
+            smoothed[i] = weighted_sum / total_weight if total_weight > 0 else float(data[i])
+    
+        original_sum = int(np.sum(data))
+    
+        target_sum_without_first = original_sum - int(left_value)
+        current_sum_without_first = np.sum(smoothed[1:])
+    
+        if abs(current_sum_without_first) > 1e-10:
+            scale = target_sum_without_first / current_sum_without_first
+            smoothed[1:] *= scale
+    
+        result = np.zeros(n, dtype=np.int64)
+        result[0] = int(left_value)
+    
+        floors = np.floor(smoothed[1:]).astype(np.int64)
+        result[1:] = floors
+    
+        remainders = smoothed[1:] - floors
+    
+        current_sum = np.sum(result)
+        diff = original_sum - current_sum
+    
+        if diff != 0:
+            indices = np.argsort(remainders)[::-1] if diff > 0 else np.argsort(remainders)
+        
+            for i in range(min(abs(diff), len(indices))):
+                idx = indices[i] + 1
+                result[idx] += 1 if diff > 0 else -1
+                if result[idx] < 0:
+                    result[idx] = 0
+    
+        return result
+
+
+    start_value = start_value_slider.value
+    window_size = window_size_slider.value
+
+    lkr_flexible_start_result = kernel_regression_greville_flexible_start(
+        test_data, window=window_size, start_value=start_value
+    )
+    print(f"\nLKR with Flexible Start Value result:")
+    print(f"Original sum: {np.sum(test_data)}, Smoothed sum: {np.sum(lkr_flexible_start_result)}")
+    fig_lkr_flexible_start = plot_individual_comparison(
+        test_data,
+        lkr_flexible_start_result,
+        'Localized Kernel Regression with Flexible Start Value',
+        'LKR with Flexible Start'
+    )
+    plt.show()
     return
 
 
