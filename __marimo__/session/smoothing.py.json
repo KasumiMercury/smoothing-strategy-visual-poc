@@ -5,7 +5,7 @@
   },
   "cells": [
     {
-      "id": "MJUe",
+      "id": "Hbol",
       "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
       "outputs": [
         {
@@ -18,7 +18,7 @@
       "console": []
     },
     {
-      "id": "vblA",
+      "id": "MJUe",
       "code_hash": "4ae28ebeecc38f2e68706dd494b8c400",
       "outputs": [
         {
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "id": "bkHC",
+      "id": "vblA",
       "code_hash": "b8287681a0c036b9309f3493bfb70a03",
       "outputs": [
         {
@@ -51,7 +51,7 @@
       "console": []
     },
     {
-      "id": "lEQa",
+      "id": "bkHC",
       "code_hash": "f0b8121d7c051a71e320564dba0c8514",
       "outputs": [
         {
@@ -71,7 +71,7 @@
       ]
     },
     {
-      "id": "PKri",
+      "id": "lEQa",
       "code_hash": "8d5d9a79c0a51253939428c1c2bcf7ca",
       "outputs": [
         {
@@ -98,12 +98,12 @@
     },
     {
       "id": "Xref",
-      "code_hash": null,
+      "code_hash": "8c145eaf4d3040b3e02796c7870efcdb",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/plain": ""
+            "text/html": "<marimo-ui-element object-id='Xref-0' random-id='0d0992c5-07e6-2f4f-301f-d0d86697e155'><marimo-slider data-initial-value='5' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Spike Redistribution Radius&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
@@ -111,19 +111,6 @@
     },
     {
       "id": "SFPL",
-      "code_hash": "8c145eaf4d3040b3e02796c7870efcdb",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<marimo-ui-element object-id='SFPL-0' random-id='4e342121-ba9e-5dd6-8a9f-76d5c9593b3f'><marimo-slider data-initial-value='5' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Spike Redistribution Radius&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "BYtC",
       "code_hash": "0c53c0dd650bdf22be22a7d8cc23eb5e",
       "outputs": [
         {
@@ -149,20 +136,20 @@
       ]
     },
     {
-      "id": "RGSE",
+      "id": "BYtC",
       "code_hash": "fa37cddb048ab2fdbd86e7a1e33a40b6",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='RGSE-0' random-id='ef37eddf-c4e8-ac13-4740-4661435721df'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CMA Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='BYtC-0' random-id='b1dbc00f-2c09-54c5-bbdc-b45c24e293c5'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CMA Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "Kclp",
+      "id": "RGSE",
       "code_hash": "7e0cce25b29d08ab5eda3c4edfc1479d",
       "outputs": [
         {
@@ -188,20 +175,20 @@
       ]
     },
     {
-      "id": "emfo",
+      "id": "Kclp",
       "code_hash": "e5de22147a9fc42b65f3b51e9d26dd46",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='emfo-0' random-id='6c4a8070-d89a-77a0-3085-b31061f74813'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LKR Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='Kclp-0' random-id='53390d87-7dce-0b42-5103-28ffdc98c765'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LKR Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
       "console": []
     },
     {
-      "id": "Hstk",
+      "id": "emfo",
       "code_hash": "388de1910d0aa3e15031cd0c372146e7",
       "outputs": [
         {
@@ -227,13 +214,26 @@
       ]
     },
     {
-      "id": "nWHF",
+      "id": "Hstk",
       "code_hash": "09f1e70baec385ed4b317a633c14e8a6",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='nWHF-0' random-id='0ca46558-784f-d16c-4165-c4cd8b7e9f67'><marimo-slider data-initial-value='5' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Base Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='Hstk-0' random-id='676903ac-565a-4563-8c79-fceadad4f966'><marimo-slider data-initial-value='5' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Base Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "1303b09e4ec83f49330700b78081867f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='nWHF-0' random-id='8d44a5dc-854b-8420-9db3-7d41d8c64088'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Max Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
@@ -241,12 +241,12 @@
     },
     {
       "id": "iLit",
-      "code_hash": "1303b09e4ec83f49330700b78081867f",
+      "code_hash": "998ca62a86e60e02bed9aea12f681f68",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='iLit-0' random-id='0464d0ea-0ed0-d290-d8ea-5e5d70aee304'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Max Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='iLit-0' random-id='dd3b7fd2-ebb0-6318-2a4e-742d3ccc9ca0'><marimo-slider data-initial-value='2.0' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Spike Threshold&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1.0' data-stop='5.0' data-step='0.1' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
@@ -254,19 +254,6 @@
     },
     {
       "id": "ZHCJ",
-      "code_hash": "998ca62a86e60e02bed9aea12f681f68",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<marimo-ui-element object-id='ZHCJ-0' random-id='988e4ee0-2052-2bae-e6fe-4d1c5bca1ce6'><marimo-slider data-initial-value='2.0' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Adaptive Spike Threshold&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1.0' data-stop='5.0' data-step='0.1' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "ROlb",
       "code_hash": "8dcb8475adb75f4733ea8289efe996fd",
       "outputs": [
         {
@@ -292,13 +279,26 @@
       ]
     },
     {
-      "id": "qnkX",
+      "id": "ROlb",
       "code_hash": "7e051763d9aaa3df63eccf91f84c367c",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='qnkX-0' random-id='c6bc2774-9f6a-e525-cd19-32334e10b232'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CLS Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='ROlb-0' random-id='58d370c1-3b36-339e-0fdd-48f6bc1ad1b1'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CLS Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "d58581cda0f5a4ae3213e7899e1f5290",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='qnkX-0' random-id='9cd6089d-5c64-91ca-a238-1b144c06787d'><marimo-slider data-initial-value='0.1' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CLS Lambda&lt;/span&gt;&lt;/span&gt;&quot;' data-start='0.01' data-stop='1.0' data-step='0.01' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
@@ -306,19 +306,6 @@
     },
     {
       "id": "TqIu",
-      "code_hash": "d58581cda0f5a4ae3213e7899e1f5290",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<marimo-ui-element object-id='TqIu-0' random-id='2983b160-d9c0-5538-06f7-909ac477a244'><marimo-slider data-initial-value='0.1' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;CLS Lambda&lt;/span&gt;&lt;/span&gt;&quot;' data-start='0.01' data-stop='1.0' data-step='0.01' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "Vxnm",
       "code_hash": "bfc503380c6d4f7fe412db1915414368",
       "outputs": [
         {
@@ -344,13 +331,26 @@
       ]
     },
     {
-      "id": "DnEU",
+      "id": "Vxnm",
       "code_hash": "bad853de3f4be222b1d6f6d54d1ccc2f",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<marimo-ui-element object-id='DnEU-0' random-id='0cb10534-f7f1-e7a2-3677-116f48194b06'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LOWNESS Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+            "text/html": "<marimo-ui-element object-id='Vxnm-0' random-id='6cb92a16-2d33-b9e3-f84d-495d90b6ed45'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LOWNESS Window Size&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='30' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "461da855f38d2902ed932b25a532c3ca",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='DnEU-0' random-id='b37d6e87-1a75-114d-a363-8f6f810c7195'><marimo-slider data-initial-value='3' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LOWESS Iterations&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='10' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
           }
         }
       ],
@@ -358,19 +358,6 @@
     },
     {
       "id": "ulZA",
-      "code_hash": "461da855f38d2902ed932b25a532c3ca",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<marimo-ui-element object-id='ulZA-0' random-id='bd04e36c-4e18-cfee-04ec-0bec402b98ac'><marimo-slider data-initial-value='3' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;LOWESS Iterations&lt;/span&gt;&lt;/span&gt;&quot;' data-start='1' data-stop='10' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "ecfG",
       "code_hash": "58245c3e2ad71cad0cb7025d57e3bf52",
       "outputs": [
         {
@@ -396,8 +383,8 @@
       ]
     },
     {
-      "id": "PoGH",
-      "code_hash": "b20b55075c2a5a047c3358eec96f3b57",
+      "id": "ecfG",
+      "code_hash": "a72d7b037873887e42ce264647f492c4",
       "outputs": [
         {
           "type": "data",
@@ -422,7 +409,7 @@
       ]
     },
     {
-      "id": "FsQC",
+      "id": "Pvdt",
       "code_hash": "add74e010eeb94330866828be99d01c7",
       "outputs": [
         {
@@ -448,7 +435,7 @@
       ]
     },
     {
-      "id": "VfhW",
+      "id": "ZBYS",
       "code_hash": "9c3acca1caa3eb3f822d87310907c6d1",
       "outputs": [
         {
@@ -474,7 +461,7 @@
       ]
     },
     {
-      "id": "Pvdt",
+      "id": "aLJB",
       "code_hash": "335aa04b8aa8874c1e45dc3dbc469b9a",
       "outputs": [
         {
@@ -494,7 +481,7 @@
       ]
     },
     {
-      "id": "ZBYS",
+      "id": "nHfw",
       "code_hash": "9d5dbe16bb5af742e2ce6333d93941c4",
       "outputs": [
         {
@@ -512,6 +499,19 @@
           "mimetype": "text/plain"
         }
       ]
+    },
+    {
+      "id": "PKri",
+      "code_hash": null,
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
     }
   ]
 }
