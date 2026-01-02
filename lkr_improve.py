@@ -146,7 +146,7 @@ def _(np, plot_individual_comparison, plt, test_data):
 
 @app.cell(hide_code=True)
 def _(np, plot_individual_comparison, plt, test_data):
-    def lkr_sum_preserve(data: np.ndarray, window: int = 10, kernel: str = 'triangular') -> np.ndarray:
+    def lkr_sum_preserve(data: np.ndarray, window: int = 5, kernel: str = 'triangular') -> np.ndarray:
         n = len(data)
 
         if n <= 1:
